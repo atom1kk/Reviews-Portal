@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from .forms import EmailPostForm, CommentForm
 from PIL import Image
 from taggit.models import Tag
+from django.db.models import Count  # функция агрегации Count позволяет выполнить агрегирующий запрос для подсчета кол-ва тегов на уровне базы данных
 
 class PostListView(ListView):
 	queryset = Post.published.all()
@@ -18,8 +19,8 @@ def post_list(request, tag_slug=None):
 	tag = None
 
 	if tag_slug:
-		tag = get_object_or_404(Tag, slug=tag_slug)
-		object_list = object_list.filter(tags__in=[tag])
+		tag = get_object_or_404(Tag, slug=tag_slug)  
+		object_list = object_list.filter(tags__in=[tag])  # фильтруем статьи с определенным тегом
 
 	paginator = Paginator(object_list, 3)  # по 3 статьи на страницу
 	page = request.GET.get('page')
@@ -51,7 +52,8 @@ def post_detail(request, year, month, day, post):  # делаем переход
 			new_comment.post = post
 			# И теперь сохраняем его в базу
 			new_comment.save()
-			return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})
+			# Формируем список похожих статей
+			return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form, 'similar_posts': similar_posts})
 	else:
 		comment_form = CommentForm()
 		return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})  #  
