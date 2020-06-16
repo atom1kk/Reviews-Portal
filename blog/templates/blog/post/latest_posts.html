@@ -1,0 +1,8 @@
+<ul class="most-popular">
+	{% for post in latest_posts %}
+		<li>
+			<div class="order">{{ post.id }}</div> 
+			<p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+		</li>
+	{% endfor %}
+</ul>

@@ -53,7 +53,7 @@ def post_detail(request, year, month, day, post):  # делаем переход
 			# И теперь сохраняем его в базу
 			new_comment.save()
 			# Формируем список похожих статей
-			return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form, 'similar_posts': similar_posts})
+			return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})
 	else:
 		comment_form = CommentForm()
 		return render(request, 'blog/post/detail.html', {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form})  #  
@@ -63,12 +63,12 @@ def post_share(request, post_id):
 	# Получение статьи по идентификатору
 	post = get_object_or_404(Post, id=post_id, status='published') 
 	sent = False
-	if request.method == 'POST':
+	if request.method == 'POST': 
 		# Форма отправляется на сохранение
 		form = EmailPostForm(request.POST)
 		# Проверяем правильность заполненных полей
 		if form.is_valid():
-			# Все поля прошли валидацию
+			# Все поля прошли валидацию 
 			cd = form.cleaned_data
 			# ... Отправка почты
 			post_url = request.build_absolute_uri(post.get_absolute_url())
@@ -80,4 +80,3 @@ def post_share(request, post_id):
 	else:
 		form = EmailPostForm() # Сохраняем форму 
 		return render(request, 'blog/post/share.html', {'post': post, 'form': form, 'sent': sent})
-

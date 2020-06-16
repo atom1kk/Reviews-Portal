@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load blog_tags %}
 {% load static %}
 <head>
 	<!-- Basic Page Needs -->
@@ -190,51 +191,29 @@
 							</div>
 						</article><!--  /.post -->
 					</div><!-- /.social-media-posts -->
-				</div><!-- /.col-md-8 -->
-				<div class="col-md-4">
+				</div><!-- /.col-md-8 --> 
+				<div class="col-md-4"> 
 					<div class="sidebar-widget-1">
 						<div class="widget widget-tabs2">
 							<div class="tabs style2">
 								<ul class="menu-tab">
 									<li class="active"><a href="#">5 Most Popular</a></li>
-								   	<li><a href="#">5 Most Emailed</a></li>
+								   	<li><a href="#">5 Latest Posts</a></li>
 								</ul><!-- /.menu-tab -->
 								<div class="content-tab">
 								   	<div class="content">
-										<ul class="most-popular">
-											<li>
-												<div class="order">1</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-											<li>
-												<div class="order">2</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-											<li>
-												<div class="order">3</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-											<li>
-												<div class="order">4</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-											<li>
-												<div class="order">5</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-										</ul>
+										{% get_most_commented_posts as most_commented_posts %}
+											<ul class="most-popular">
+												{% for post in most_commented_posts %}
+													<li>
+														<div class="order">{{ post.id }}</div>
+														<p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+													</li>
+												{% endfor %}
+											</ul>
 								   	</div><!-- /.content-list -->
 								   	<div class="content">
-										<ul class="most-popular">
-											<li>
-												<div class="order">1</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-											<li>
-												<div class="order">2</div>
-												<p><a href="#">The World’s Youngest Billionaire is Just 24 and She’s From Hong Kong</a></p>
-											</li>
-										</ul>
+										{% show_latest_posts 5 %}
 								   	</div><!-- /.comments -->
 								</div><!-- /.content-tab -->
 							</div><!-- /.tabs -->
