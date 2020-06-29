@@ -49,7 +49,7 @@
 				<div class="row">
 					<div class="col-md-6">
 		              	<div id="logo" class="logo">
-							<a href="index.html" rel="home" title="home">
+							<a href="{% url 'blog:post_list' %}" rel="home" title="home">
 								<img src="{% static 'images/logo.svg' %}" alt="Good News" />
 							</a>
 		            	</div>
@@ -69,8 +69,8 @@
 		            <div class="col-md-6">
 		            	<div class="btn-menu"></div><!-- //mobile menu button -->
 		            	<div class="member-area">
-		            		<span class="login-popup"><a href="#login-modal">Login</a></span>
-		            		<span class="signup-popup"><a href="#signup-modal">Become a member</a></span>
+		            		<span class="login-popup"><a href="#login-modal">Авторизация</a></span>
+		            		<span class="signup-popup"><a href="#signup-modal">Зарегистрироваться</a></span>
 		            	</div>
 		            </div><!-- /.col-md-6 -->
 	            </div><!-- /.row -->
@@ -227,38 +227,7 @@
 								</ul><!-- /.menu-tab -->
 								<div class="content-tab">
 								   	<div class="content">
-										<ul class="comments">
-											<li>
-												<div class="avatar">
-													<a href="#"><img src="{% static 'images/user.jpg' %}" alt="image"></a>
-												</div>
-												<p><a href="#">Jack</a> on <a href="#">I think your best bet would be to start or join a startup.</a> 2 hours</p>
-											</li>	
-											<li>
-												<div class="avatar">
-													<a href="#"><img src="{% static 'images/user.jpg' %}" alt="image"></a>
-												</div>
-												<p><a href="#">Jack</a> on <a href="#">I think your best bet would be to start or join a startup.</a> 2 hours</p>
-											</li>
-											<li>
-												<div class="avatar">
-													<a href="#"><img src="{% static 'images/user.jpg' %}" alt="image"></a>
-												</div>
-												<p><a href="#">Jack</a> on <a href="#">I think your best bet would be to start or join a startup.</a> 2 hours</p>
-											</li>
-											<li>
-												<div class="avatar">
-													<a href="#"><img src="{% static 'images/user.jpg' %}" alt="image"></a>
-												</div>
-												<p><a href="#">Jack</a> on <a href="#">I think your best bet would be to start or join a startup.</a> 2 hours</p>
-											</li>
-											<li>
-												<div class="avatar">
-													<a href="#"><img src="{% static 'images/user.jpg' %}" alt="image"></a>
-												</div>
-												<p><a href="#">Jack</a> on <a href="#">I think your best bet would be to start or join a startup.</a> 2 hours</p>
-											</li>
-										</ul>
+										{% show_latest_comments 5 %}
 								   	</div><!-- /.comments -->
 								   	<div class="content">
 										<ul class="pop-posts">

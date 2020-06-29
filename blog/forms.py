@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment
+from .models import Comment, Post
 from PIL import Image
 
 class EmailPostForm(forms.Form):
@@ -12,3 +12,6 @@ class CommentForm(forms.ModelForm):
  	class Meta:
  		model = Comment
  		fields = ('name', 'email', 'body', 'image')
+
+class SearchForm(forms.Form):
+	query = forms.CharField()

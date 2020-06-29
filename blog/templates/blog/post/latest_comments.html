@@ -1,0 +1,13 @@
+{% load static %}
+
+<ul class="comments">
+	{% for comment in latest_comments %}
+	<li>
+		<div class="avatar">
+			<a href="#"><img src="{% static 'images/user.jpg' %}" alt="image"></a>
+		</div>
+		<p><a href="#">{{ comment.name }}</a> оставил отзыв в <a href="{{ comment.post.get_absolute_url }}">{{ comment.post.title }}</a> 
+		{{ comment.created }}</p>
+	</li>
+	{% endfor %}	
+</ul>
