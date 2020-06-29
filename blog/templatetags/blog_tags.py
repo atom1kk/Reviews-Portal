@@ -15,5 +15,14 @@ def get_most_commented_posts(count=5):
 	
 @register.inclusion_tag('blog/post/latest_comments.html')
 def show_latest_comments(count=5):
-	latest_comments = Comment.commented.order_by('-active')[:count]
+	latest_comments = Comment.commented.order_by('-created')[:count]
 	return {'latest_comments': latest_comments}
+
+@register.simple_tag
+def get_most_commented_posts_detail(count=5):
+	return Post.published.annotate(total_comments=Count('comments')).order_by('total_comments')[:count]
+
+@register.inclusion_tag('blog/post/all_tags.html')
+def show_all_tags(count=20):
+	all_tags = Post.tags.order_by('-name')
+	return {'all_tags': all_tags}

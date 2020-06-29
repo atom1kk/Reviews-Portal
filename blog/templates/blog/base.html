@@ -230,65 +230,22 @@
 										{% show_latest_comments 5 %}
 								   	</div><!-- /.comments -->
 								   	<div class="content">
-										<ul class="pop-posts">
-											<li>
-												<div class="thumb">
-													<a href="#"><img alt="" src="{% static 'images/thumbs/1.jpg' %}"></a>
-												</div>
-												<div class="text">
-													<a href="#">If you wanted to get rich, how would you do it?</a>
-													<i>Aug 1, 2014</i>
-												</div>
-											</li>
-											<li>
-												<div class="thumb">
-													<a href="#"><img alt="" src="{% static 'images/thumbs/1.jpg' %}"></a>
-												</div>
-												<div class="text">
-													<a href="#">If you wanted to get rich, how would you do it?</a>
-													<i>Aug 1, 2014</i>
-												</div>
-											</li>
-											<li>
-												<div class="thumb">
-													<a href="#"><img alt="" src="{% static 'images/thumbs/1.jpg' %}"></a>
-												</div>
-												<div class="text">
-													<a href="#">If you wanted to get rich, how would you do it?</a>
-													<i>Aug 1, 2014</i>
-												</div> 
-											</li>
-											<li>
-												<div class="thumb">
-													<a href="#"><img alt="" src="{% static 'images/thumbs/1.jpg' %}"></a>
-												</div>
-												<div class="text">
-													<a href="#">If you wanted to get rich, how would you do it?</a>
-													<i>Aug 1, 2014</i>
-												</div> 
-											</li>
-											<li>
-												<div class="thumb">
-													<a href="#"><img alt="" src="{% static 'images/thumbs/1.jpg' %}"></a>
-												</div>
-												<div class="text">
-													<a href="#">If you wanted to get rich, how would you do it?</a>
-													<i>Aug 1, 2014</i>
-												</div>
-											</li>
-										</ul>
+								   		{% get_most_commented_posts_detail as most_commented_posts_detail %}
+											<ul class="pop-posts">
+												{% for post in most_commented_posts %}
+												<li>
+													<div class="thumb">
+														<a href="{{ post.get_absolute_url }}"><img alt="" src="{% if post.image %}{{ post.image.url }}{% else %}{% static 'images/image-content.jpg' %}{% endif %}"></a>
+													</div>
+													<div class="text">
+														<a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords:10 }}</a>
+													</div>
+												</li>
+												{% endfor %}
+											</ul>
 								   	</div><!-- /.comments -->
 								   	<div class="content">
-										<div class="tags">
-											<a href="#">business</a>
-											<a href="#">themeforest</a>
-											<a href="#">good news</a>
-											<a href="#">startups</a>
-											<a href="#">red</a>
-											<a href="#">politics</a>
-											<a href="#">europe</a>
-											<a href="#">asia</a>
-										</div>
+								   		{% show_all_tags 20 %}
 								   	</div><!-- /.comments -->
 								</div><!-- /.content-tab -->
 							</div><!-- /.tabs -->
