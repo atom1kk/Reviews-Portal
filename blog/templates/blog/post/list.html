@@ -4,6 +4,9 @@
 	{% if tag %}
  		<h2>Posts tagged with "{{ tag.name }}"</h2>
  	{% endif %}
+ 	{% if category %}
+ 		<h2>Posts tagget with "{{ category.title }}"
+ 	{% endif %}
  	{% for post in posts %}
  	<div class="post-wrap">
 		<article class="post">

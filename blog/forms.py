@@ -11,7 +11,8 @@ class EmailPostForm(forms.Form):
 class CommentForm(forms.ModelForm):
  	class Meta:
  		model = Comment
- 		fields = ('name', 'email', 'body', 'image')
+ 		fields = ('name', 'value', 'title', 'body', 'image')
 
 class SearchForm(forms.Form):
 	query = forms.CharField()
+

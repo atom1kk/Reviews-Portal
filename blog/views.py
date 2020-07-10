@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
+from .models import Post, Comment, Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
 from django.core.mail import send_mail
@@ -12,18 +12,24 @@ from django.contrib.postgres.search import SearchVector
 class PostListView(ListView):
 	queryset = Post.published.all()
 	context_object_name = 'posts'
-	paginate_by = 3
+	paginate_by = 10
 	template_name = 'blog/post/list.html'
 
-def post_list(request, tag_slug=None):
+def post_list(request, tag_slug=None, category_slug=None):
 	object_list = Post.published.all()  # запрашиваем все опубликованные статьи с помощью менеджера published
 	tag = None
+	category = None
+	categories = Category.objects.all()
+
+	if category_slug:
+		category = get_object_or_404(Category, slug=category_slug)
+		posts = posts.filter(category=category)
 
 	if tag_slug:
 		tag = get_object_or_404(Tag, slug=tag_slug)  
 		object_list = object_list.filter(tags__in=[tag])  # фильтруем статьи с определенным тегом
 
-	paginator = Paginator(object_list, 3)  # по 3 статьи на страницу
+	paginator = Paginator(object_list, 10)  # по 3 статьи на страницу
 	page = request.GET.get('page')
 
 	try:
@@ -96,3 +102,23 @@ def post_search(request):
 	else:
 		form = SearchForm()
 	return render(request, 'blog/post/search.html', {'form': form, 'query': query, 'results': results})
+
+
+def calculate_average_value():
+   # Сумма оценок
+	sum_of_value = 0
+	# Количество оценок
+	count = 0
+	# Находим все оценки от 1 до 5
+	for value in range(6):
+	    # Получаем объекты оценок
+	    objs = Comment.objects.filter(rating_choices=value)
+	    # складываем кол-во оценок
+	    count += objs.count()
+	    # складываем сумму оценок
+	    sum_of_value += objs.count() * i
+	    # возвращаем среднюю оценку или None, если не удалось посчитать оценку
+	if count > 0:
+	    return sum_of_value / count
+	else:
+	    return None

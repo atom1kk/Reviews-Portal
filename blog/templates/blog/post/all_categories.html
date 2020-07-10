@@ -1,0 +1,6 @@
+{% for category in all_categories %}
+<h5 class="widget-title">Categories</h5>
+<ul class="cat-list">
+	<li><a href="{% url 'blog:post_list' %}">{{ category.title }} <span>{{ category.count }}</span></a></li>
+</ul>
+{% endfor %}
